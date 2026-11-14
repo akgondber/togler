@@ -5,8 +5,7 @@ import {
   addEdge, 
   ReactFlowProvider, 
   type Connection, 
-  type Edge,
-  type NodeTypes
+  type Edge
 } from '@xyflow/react';
 
 import '@xyflow/react/dist/style.css';
@@ -16,24 +15,10 @@ import env from './env';
 import LiteratureFlow from './LiteratureFlow';
 
 // Импортируем наши кастомные HTML-компоненты узлов
-import InteractiveLiteratureNode from './InteractiveLiteratureNode';
-import TopicNode from './TopicNode';
 
 // Импортируем общие типы (из созданного ранее файла types.ts)
 import { type AppNode, type AnalyticalType } from './types';
-import CustomGroupNode from './CustomGroupNode';
-import CustomNode from './CustomNode';
 
-
-
-
-// 1. Регистрируем наши кастомные компоненты в словаре типов для XYFlow
-const nodeTypes: NodeTypes = {
-  interactiveLiterature: InteractiveLiteratureNode,
-  topicNode: TopicNode,
-  chapterGroup: CustomGroupNode,
-  customNode: CustomNode,
-};
 
 const initialNodes: AppNode[] = env.mode !== 'development' ? [] : [
   {
@@ -553,33 +538,6 @@ function AppContent() {
     [setEdges]
   );
 
-  const handleTextChange = useCallback((nodeId: string, newText: string) => {
-        setNodes((nds) =>
-            nds.map((node) => {
-                
-                if (node.id === nodeId) {
-                    if (node.type === 'editableTopic') {
-                        return {
-                            ...node,
-                            data: {
-                                ...node.data,
-                                text: newText, // Теперь TS знает, что у 'editableTopic' есть text
-                            },
-                        };
-                    }
-                }
-                // return {
-                //     ...node,
-                //     data: {
-                //     ...node.data,
-                //     text: newText,
-                //     },
-                // };
-                
-                return node;
-            })
-        );
-    }, []);
   // Функция для динамического добавления нового интерактивного узла
   const handleCreateNode = (e: React.FormEvent) => {
     e.preventDefault();

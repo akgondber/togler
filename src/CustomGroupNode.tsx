@@ -1,7 +1,6 @@
 import React from 'react';
-import { Handle, NodeResizeControl, NodeResizer, Position, useReactFlow, type NodeProps } from '@xyflow/react';
+import { Handle, NodeResizer, Position, useReactFlow, type NodeProps } from '@xyflow/react';
 import { type CustomGroupNode as CustomGroupNodeType } from './types';
-import { SunIcon } from '@radix-ui/react-icons';
 
 // export default function CustomGroupNode({ id, data, selected }: NodeProps<CustomGroupNodeType>) {
 //   return (
@@ -37,29 +36,6 @@ import { SunIcon } from '@radix-ui/react-icons';
 //     </>
 //   );
 // }
-
-function ResizeIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      strokeWidth="2"
-      stroke="#ff0071"
-      fill="none"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      style={{ position: 'absolute', right: 5, bottom: 5 }}
-    >
-      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-      <polyline points="16 20 20 20 20 16" />
-      <line x1="14" y1="14" x2="20" y2="20" />
-      <polyline points="8 4 4 4 4 8" />
-      <line x1="4" y1="4" x2="10" y2="10" />
-    </svg>
-  );
-}
 
 // export default function CustomGroupNode({ id, data, selected }: NodeProps<CustomGroupNodeType>) {
 //   return (
@@ -359,19 +335,9 @@ function ResizeIcon() {
 // }
 
 export default function CustomNode({ id, data, selected }: NodeProps<CustomGroupNodeType>) {
-  const { setNodes, deleteElements } = useReactFlow();
+  const { deleteElements } = useReactFlow();
   const handleDelete = () => {
     deleteElements({ nodes: [{ id }] }); // XYFlow сам удалит и ноду, и все стрелки к ней!
-  };
-  const updateNodeData = (field: 'type' | 'comment', value: string) => {
-    setNodes((nodes) =>
-      nodes.map((node) => {
-        if (node.id === id) {
-          return { ...node, data: { ...node.data, [field]: value } };
-        }
-        return node;
-      })
-    );
   };
 
   return (
@@ -444,16 +410,14 @@ export default function CustomNode({ id, data, selected }: NodeProps<CustomGroup
       </div>
 
       {/* 1. ЗАГОЛОВОК: Опускаем его на 40px ниже верхнего края, чтобы освободить место под тег */}
-      {
-        true ?
-          <div style={{ marginTop: '40px' }}>
-            <span style={{ backgroundColor: '#0f172a', color: '#fff', padding: '4px 8px', display: 'inline-block' }}>
-              
-              {data.label || 'The Savior Complex Can Destroy the Savior'}
-            </span>
-          </div> :
-          <input type="text" value={data.label} />
-      }
+      
+      <div style={{ marginTop: '40px' }}>
+        <span style={{ backgroundColor: '#0f172a', color: '#fff', padding: '4px 8px', display: 'inline-block' }}>
+          
+          {data.label || 'The Savior Complex Can Destroy the Savior'}
+        </span>
+      </div> :
+      <input type="text" value={data.label} />
         
       {/* 2. ОПИСАНИЕ: Четкий фиксированный margin от заголовка */}
       {

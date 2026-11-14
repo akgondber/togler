@@ -67,7 +67,7 @@ export default function InteractiveLiteratureNode({ id, data }: NodeProps<Custom
         ✕
       </button>
       <div style={{position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', minHeight: '32px'}}>
-        <div title={`${data.type} One two three, one two three, one two three, drink` || ''} style={{
+        <div title={data.type || ''} style={{
           position: 'absolute',
           left: 0,
           fontSize: '12px',
@@ -81,7 +81,7 @@ export default function InteractiveLiteratureNode({ id, data }: NodeProps<Custom
           overflow: 'hidden',
           textOverflow: 'ellipsis'
         }}>
-          {`${data.type} One two three, one two three, one two three, drink` || ''}
+          {data.type || ''}
         </div>
 
         <div style={{
